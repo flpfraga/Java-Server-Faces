@@ -1,5 +1,8 @@
 package bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputSecret;
@@ -19,11 +22,10 @@ public class PessoaBean {
 	private HtmlInputText inputCidade;
 	PessoaRepository pessoaRepository;
 	EnderecoRepository enderecoRepository;
-	
-	
+
 	public void adicionar() {
-		System.out.println(inputNome.getLocalValue());	
-		System.out.println(inputPassword.getLocalValue());	
+		System.out.println(inputNome.getLocalValue());
+		System.out.println(inputPassword.getLocalValue());
 		System.out.println(inputCidade.getLocalValue());
 		Pessoa pessoa = new Pessoa();
 		pessoa.setNome((String) inputNome.getLocalValue());
@@ -37,24 +39,38 @@ public class PessoaBean {
 		enderecoRepository.salvar(endereco);
 	}
 	
-	
+	public ArrayList<Pessoa> exibir () {
+		pessoaRepository = new PessoaRepository();
+		ArrayList<Pessoa>pessoas = (ArrayList<Pessoa>) pessoaRepository.buscarTodos();
+		for (Pessoa p : pessoas) {
+			System.out.println(p.getNome());
+		}
+		return pessoas;
+		
+	}
+
 	public HtmlInputText getInputNome() {
 		return inputNome;
 	}
+
 	public void setInputNome(HtmlInputText inputNome) {
 		this.inputNome = inputNome;
 	}
+
 	public HtmlInputSecret getInputPassword() {
 		return inputPassword;
 	}
+
 	public void setInputPassword(HtmlInputSecret inputPassword) {
 		this.inputPassword = inputPassword;
 	}
+
 	public HtmlInputText getInputCidade() {
 		return inputCidade;
 	}
+
 	public void setInputCidade(HtmlInputText inputCidade) {
 		this.inputCidade = inputCidade;
 	}
-	
+
 }
